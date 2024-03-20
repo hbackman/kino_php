@@ -1,0 +1,49 @@
+# PHP Smart Cell
+
+```elixir
+Mix.install([
+  {:kino_php, path: "/Users/hbackman/workspace2/kino_php"}
+])
+```
+
+## PHP Cells
+
+Try out the PHP Smart Cell by clicking `+Smart`, then selecting `PHP Script`.
+
+The default code is prefixed by `<?php`. This is technically not needed, but the code editor won't syntax highlight php without it. The workaround is to include the prefix in the code snippets.
+
+<!-- livebook:{"attrs":"eyJzb3VyY2UiOiI8P3BocFxuZWNobyBcIkhlbGxvIHdvcmxkIVwiOyJ9","chunks":null,"kind":"Elixir.KinoPHP.ScriptCell","livebook_object":"smart_cell"} -->
+
+```elixir
+frame = Kino.Frame.new() |> Kino.render()
+
+source =
+  """
+  <?php
+  echo "Hello world!";
+  """
+  |> KinoPHP.eval(fn output -> KinoPHP.append_to_frame(frame, [:green, output]) end)
+
+Kino.nothing()
+```
+
+The PHP Script cell will also stream its output, so you don't have to wait for long running scripts to complete before you can see the output.
+
+<!-- livebook:{"attrs":"eyJzb3VyY2UiOiI8P3BocFxuXG5mb3IgKCRpID0gMTsgJGkgPD0gNTsgJGkrKykge1xuICBlY2hvIFwiSXRlcmF0aW9uOiAkaVxcblwiO1xuICBzbGVlcCgxKTtcbn0ifQ","chunks":null,"kind":"Elixir.KinoPHP.ScriptCell","livebook_object":"smart_cell"} -->
+
+```elixir
+frame = Kino.Frame.new() |> Kino.render()
+
+source =
+  """
+  <?php
+
+  for ($i = 1; $i <= 5; $i++) {
+    echo "Iteration: $i\n";
+    sleep(1);
+  }
+  """
+  |> KinoPHP.eval(fn output -> KinoPHP.append_to_frame(frame, [:green, output]) end)
+
+Kino.nothing()
+```
