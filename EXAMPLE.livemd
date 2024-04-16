@@ -12,38 +12,48 @@ Try out the PHP Smart Cell by clicking `+Smart`, then selecting `PHP Script`.
 
 The default code is prefixed by `<?php`. This is technically not needed, but the code editor won't syntax highlight php without it. The workaround is to include the prefix in the code snippets.
 
-<!-- livebook:{"attrs":"eyJzb3VyY2UiOiI8P3BocFxuZWNobyBcIkhlbGxvIHdvcmxkIVwiOyJ9","chunks":null,"kind":"Elixir.KinoPHP.ScriptCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":"eyJzb3VyY2UiOiI8P3BocFxuXG5mb3IgKCRpID0gMDsgJGkgPCA1OyAkaSsrKSB7XG5cbiAgZndyaXRlKFNURE9VVCwgXCJmb28gJGlcIik7XG4gIGZ3cml0ZShTVERFUlIsIFwiYmFyICRpXCIpO1xuXG4gIHNsZWVwKDEpO1xufVxuIn0","chunks":null,"kind":"Elixir.KinoPHP.ScriptCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 frame = Kino.Frame.new() |> Kino.render()
 
-source =
-  """
-  <?php
-  echo "Hello world!";
-  """
-  |> KinoPHP.eval(fn output -> KinoPHP.append_to_frame(frame, [:green, output]) end)
+"""
+<?php
+
+for ($i = 0; $i < 5; $i++) {
+
+  fwrite(STDOUT, "foo $i");
+  fwrite(STDERR, "bar $i");
+
+  sleep(1);
+}
+
+"""
+|> KinoPHP.eval(fn output -> KinoPHP.append_to_frame(frame, output) end)
 
 Kino.nothing()
 ```
 
 The PHP Script cell will also stream its output, so you don't have to wait for long running scripts to complete before you can see the output.
 
-<!-- livebook:{"attrs":"eyJzb3VyY2UiOiI8P3BocFxuXG5mb3IgKCRpID0gMTsgJGkgPD0gNTsgJGkrKykge1xuICBlY2hvIFwiSXRlcmF0aW9uOiAkaVxcblwiO1xuICBzbGVlcCgxKTtcbn0ifQ","chunks":null,"kind":"Elixir.KinoPHP.ScriptCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":"eyJzb3VyY2UiOiI8P3BocFxuXG50aHJvdyBuZXcgUnVudGltZUV4Y2VwdGlvbihcInRlc3RcIik7In0","chunks":null,"kind":"Elixir.KinoPHP.ScriptCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 frame = Kino.Frame.new() |> Kino.render()
 
-source =
-  """
-  <?php
+"""
+<?php
 
-  for ($i = 1; $i <= 5; $i++) {
-    echo "Iteration: $i\n";
-    sleep(1);
-  }
-  """
-  |> KinoPHP.eval(fn output -> KinoPHP.append_to_frame(frame, [:green, output]) end)
+throw new RuntimeException("test");
+"""
+|> KinoPHP.eval(fn output -> KinoPHP.append_to_frame(frame, output) end)
 
 Kino.nothing()
+```
+
+```elixir
+frame = Kino.Frame.new() |> Kino.render()
+
+KinoPHP.append_to_frame(frame, "hello")
+KinoPHP.append_to_frame(frame, [:green, " world"])
 ```

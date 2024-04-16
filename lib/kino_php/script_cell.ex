@@ -10,12 +10,13 @@ defmodule KinoPHP.ScriptCell do
     #   attr_1: Map.get(attrs, :attr_1, false),
     #   attr_2: Map.get(attrs, :attr_2, false)
     # )
-    {:ok, ctx, editor: [
-      attribute: "source",
-      language: "php",
-      placement: :bottom,
-      default_source: "<?php\necho 'hello world';",
-    ]}
+    {:ok, ctx,
+     editor: [
+       attribute: "source",
+       language: "php",
+       placement: :bottom,
+       default_source: "<?php\necho 'hello world';"
+     ]}
   end
 
   @impl true
@@ -38,11 +39,10 @@ defmodule KinoPHP.ScriptCell do
     quote do
       frame = Kino.Frame.new() |> Kino.render()
 
-      source =
       unquote(quoted_source(attrs["source"]))
-        |> KinoPHP.eval(fn output ->
-          KinoPHP.append_to_frame(frame, output)
-        end)
+      |> KinoPHP.eval(fn output ->
+        KinoPHP.append_to_frame(frame, output)
+      end)
 
       Kino.nothing()
     end
@@ -66,8 +66,7 @@ defmodule KinoPHP.ScriptCell do
         <div class="app">
           <div class="header">
             <form style="flex-grow:1;">
-              <div class="icon-span" style="color: var(--gray-600);">
-                <i class="ri ri-terminal-box-line"></i>
+              <div class="header__title">
                 <span>PHP Script</span>
               </div>
               <div style="flex-grow:1;"></div>
@@ -118,6 +117,14 @@ defmodule KinoPHP.ScriptCell do
       border-bottom: solid 1px var(--gray-200);
       border-radius: 0.5rem 0.5rem 0 0;
       gap: 16px;
+    }
+
+    .header__title {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 0.875rem;
+      color: var(--gray-800);
+      font-weight: 600;
     }
     """
   end

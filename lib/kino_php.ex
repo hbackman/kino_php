@@ -10,16 +10,24 @@ defmodule KinoPHP do
     # check that its not nil
     exec = System.find_executable("php")
 
-    port = Port.open({
-      :spawn_executable, exec
-    }, [
-      :binary,
-      :exit_status,
-      :hide,
-      :use_stdio,
-      :stderr_to_stdout,
-      args: ["-r", code],
-    ])
+    port =
+      Port.open(
+        {
+          :spawn_executable,
+          exec
+        },
+        [
+          :binary,
+          :exit_status,
+          :hide,
+          :use_stdio,
+          :stderr_to_stdout,
+          args: [
+            Application.app_dir(:kino_php, "priv/wrapper.php"),
+            code
+          ]
+        ]
+      )
 
     stream_output(port, on_output)
   end
@@ -28,6 +36,7 @@ defmodule KinoPHP do
     receive do
       {^port, {:data, data}} ->
         on_output.(data)
+
         stream_output(port, on_output)
 
       {^port, {:exit_status, status}} ->
@@ -53,9 +62,9 @@ defmodule KinoPHP do
   """
   def append_to_frame(frame, text) do
     text
-      |> IO.ANSI.format()
-      |> IO.iodata_to_binary()
-      |> Kino.Text.new(terminal: true, chunk: true)
-      |> then(&Kino.Frame.append(frame, &1))
+    |> IO.ANSI.format()
+    |> IO.iodata_to_binary()
+    |> Kino.Text.new(terminal: true, chunk: true)
+    |> then(&Kino.Frame.append(frame, &1))
   end
 end

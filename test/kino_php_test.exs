@@ -1,5 +1,6 @@
 defmodule KinoPHPTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   doctest KinoPHP
+  doctest KinoPHP.Serialize
 end
