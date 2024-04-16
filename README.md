@@ -1,6 +1,7 @@
 # KinoPHP
 
-**TODO: Add description**
+Livebook smart cell for running PHP code. The goal for this project is to use
+livebook for interactive documentation, while still being able to use other smart cells such as SQL.
 
 ## Installation
 
@@ -21,5 +22,10 @@ be found at <https://hexdocs.pm/kino_php>.
 
 ## Notes
 
-Look into doing something like this to keep the php process alive:
 https://www.theerlangelist.com/article/outside_elixir
+
+## Goals
+
+- [ ] Data serialization for PHP -> Elixir communication.
+- [ ] Detect composer autoloader.
+- [ ] Detect laravel bootstrap.
