@@ -19,7 +19,7 @@ defmodule KinoPHP do
       :use_stdio,
       :stderr_to_stdout,
       args: [
-        Application.app_dir(:kino_php, "priv/wrapper_eval.php"), code
+        Application.app_dir(:kino_php, "priv/eval.php"), code
       ],
       # Set the current directory to the same location as the livebook.
       cd: get_notebook_path!(),
