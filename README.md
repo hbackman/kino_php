@@ -27,5 +27,5 @@ https://www.theerlangelist.com/article/outside_elixir
 ## Goals
 
 - [ ] Data serialization for PHP -> Elixir communication.
-- [ ] Detect composer autoloader.
+- [x] Detect composer autoloader.
 - [ ] Detect laravel bootstrap.

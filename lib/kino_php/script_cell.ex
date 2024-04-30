@@ -10,13 +10,12 @@ defmodule KinoPHP.ScriptCell do
     #   attr_1: Map.get(attrs, :attr_1, false),
     #   attr_2: Map.get(attrs, :attr_2, false)
     # )
-    {:ok, ctx,
-     editor: [
-       attribute: "source",
-       language: "php",
-       placement: :bottom,
-       default_source: "<?php\necho 'hello world';"
-     ]}
+    {:ok, ctx, editor: [
+      attribute: "source",
+      language: "php",
+      placement: :bottom,
+      default_source: "<?php\necho 'hello world';"
+    ]}
   end
 
   @impl true
@@ -39,22 +38,14 @@ defmodule KinoPHP.ScriptCell do
     quote do
       frame = Kino.Frame.new() |> Kino.render()
 
-      unquote(quoted_source(attrs["source"]))
-      |> KinoPHP.eval(fn output ->
-        KinoPHP.append_to_frame(frame, output)
-      end)
+      unquote(attrs["source"])
+        |> KinoPHP.eval(fn output ->
+          KinoPHP.append_to_frame(frame, output)
+        end)
 
       Kino.nothing()
     end
-    |> Kino.SmartCell.quoted_to_string()
-  end
-
-  defp quoted_source(query) do
-    if String.contains?(query, "\n") do
-      {:<<>>, [delimiter: ~s["""]], [query <> "\n"]}
-    else
-      query
-    end
+      |> Kino.SmartCell.quoted_to_string()
   end
 
   asset "main.js" do
