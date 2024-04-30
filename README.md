@@ -26,7 +26,8 @@ https://www.theerlangelist.com/article/outside_elixir
 
 ## Goals
 
-- [ ] Data serialization for PHP -> Elixir communication.
 - [x] Detect composer autoloader.
-- [ ] Detect laravel bootstrap.
+- [x] Detect laravel bootstrap.
+- [ ] Colorized output.
+- [ ] Data serialization for PHP -> Elixir communication.
 - [ ] Figure out how to get php syntax highlighting without `<?php`.

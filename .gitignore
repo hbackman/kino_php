@@ -27,3 +27,6 @@ kino_php-*.tar
 
 # ZED editor files
 .zed/
+
+# Intellij editor files
+.idea/
