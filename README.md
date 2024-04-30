@@ -29,3 +29,4 @@ https://www.theerlangelist.com/article/outside_elixir
 - [ ] Data serialization for PHP -> Elixir communication.
 - [x] Detect composer autoloader.
 - [ ] Detect laravel bootstrap.
+- [ ] Figure out how to get php syntax highlighting without `<?php`.
