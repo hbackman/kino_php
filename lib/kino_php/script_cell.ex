@@ -1,15 +1,11 @@
 defmodule KinoPHP.ScriptCell do
+
   use Kino.JS
   use Kino.JS.Live
   use Kino.SmartCell, name: "PHP Script"
 
   @impl true
   def init(_attrs, ctx) do
-    # How to set attributes:
-    # ctx = assign(ctx,
-    #   attr_1: Map.get(attrs, :attr_1, false),
-    #   attr_2: Map.get(attrs, :attr_2, false)
-    # )
     {:ok, ctx, editor: [
       attribute: "source",
       language: "php",
@@ -39,13 +35,11 @@ defmodule KinoPHP.ScriptCell do
       frame = Kino.Frame.new() |> Kino.render()
 
       unquote(attrs["source"])
-        |> KinoPHP.eval(fn output ->
-          KinoPHP.append_to_frame(frame, output)
-        end)
+        |> KinoPHP.eval(&KinoPHP.append_to_frame(frame, &1))
 
       Kino.nothing()
     end
-      |> Kino.SmartCell.quoted_to_string()
+    |> Kino.SmartCell.quoted_to_string()
   end
 
   asset "main.js" do

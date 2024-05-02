@@ -1,6 +1,6 @@
 <?php
 
-define('LARAVEL_START', microtime(true));
+define("LARAVEL_START", microtime(true));
 
 function get_laravel_dir($path)
 {
@@ -15,21 +15,48 @@ function get_laravel_dir($path)
     return get_laravel_dir(dirname($path));
 }
 
-$laravel_dir = get_laravel_dir(getcwd());
-
-if (! $laravel_dir) {
+if (!($laravel_dir = get_laravel_dir(getcwd()))) {
     return;
 }
 
+// Boot the application.
+
+use Illuminate\Contracts\Console\Kernel;
+use Symfony\Component\Console\Input\ArrayInput;
+
+use Symfony\Component\VarDumper\Caster\ReflectionCaster;
+use Symfony\Component\VarDumper\Cloner\VarCloner;
+use Symfony\Component\VarDumper\Dumper\CliDumper;
+use Symfony\Component\VarDumper\VarDumper;
+
 $app = require_once "$laravel_dir/bootstrap/app.php";
 
-$kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
-
+$kernel = $app->make(Kernel::class);
 $kernel->bootstrap();
+
+// To make the output a little nicer, we can override the var dumper to support
+// ANSI terminal colors.
+
+$cloner = new VarCloner();
+$cloner->addCasters(ReflectionCaster::UNSET_CLOSURE_FILE_INFO);
+
+$dumper = new class extends CliDumper {
+    /**
+     * Always returns true.
+     */
+    protected function supportsColors(): bool
+    {
+        return true;
+    }
+};
+
+VarDumper::setHandler(function ($var) use ($dumper, $cloner) {
+    $dumper->dump($cloner->cloneVar($var));
+});
 
 // Register a shutdown function so that when the smart cell is done, laravel can
 // fire off the shutdown events so that any final work may be done before we shut
 // down the process.
 register_shutdown_function(function () use ($kernel) {
-    $kernel->terminate(new \Symfony\Component\Console\Input\ArrayInput([]), 0);
+    $kernel->terminate(new ArrayInput([]), 0);
 });
