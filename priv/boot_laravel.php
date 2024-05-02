@@ -16,7 +16,11 @@ function get_laravel_dir($path)
 }
 
 if (!($laravel_dir = get_laravel_dir(getcwd()))) {
+    define("KINO_PHP_LARAVEL", false);
+
     return;
+} else {
+    define("KINO_PHP_LARAVEL", true);
 }
 
 // Boot the application.
