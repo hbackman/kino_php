@@ -23,7 +23,8 @@ defmodule KinoPHP.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:kino, "~> 0.12.2"}
+      {:kino, "~> 0.12.2"},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
