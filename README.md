@@ -1,7 +1,8 @@
 # KinoPHP
 
 Livebook smart cell for running PHP code. The goal for this project is to use
-livebook for interactive documentation, while still being able to use other smart cells such as SQL.
+livebook for interactive documentation, while still keeping state similar to
+how livebook normally executes cells.
 
 ## Installation
 

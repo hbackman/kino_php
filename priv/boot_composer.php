@@ -12,17 +12,19 @@ function boot_composer($path)
         return false;
     }
 
-    if (is_readable("$path/vendor/autoload.php")) {
-        require_once "$path/vendor/autoload.php";
+    $file = "$path/vendor/autoload.php";
 
-        return true;
+    if (is_readable($file)) {
+        require_once $file;
+
+        return $file;
     }
 
     return boot_composer(dirname($path));
 }
 
-if (boot_composer(getcwd())) {
-    define("KINO_PHP_COMPOSER", true);
+if ($path = boot_composer(getcwd())) {
+    define("KINO_PHP_COMPOSER", $path);
 } else {
     define("KINO_PHP_COMPOSER", false);
 }

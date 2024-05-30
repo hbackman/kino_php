@@ -4,7 +4,7 @@ defmodule KinoPHP.MixProject do
   def project do
     [
       app: :kino_php,
-      version: "0.1.0",
+      version: "0.2.0",
       description: "Livebook SmartCell to run PHP scripts.",
       elixir: "~> 1.15",
       start_permanent: Mix.env() == :prod,

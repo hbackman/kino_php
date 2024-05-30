@@ -5,7 +5,7 @@ defmodule KinoPHP do
   def eval(code, on_output) do
     # I can't get the code editor to highlight properly without using
     # "<?php" tag. So let's strip those before we evaluate.
-    code = String.replace(code, "<?php", "")
+    code = String.trim_leading(code, "<?php")
 
     # check that its not nil
     exec = System.find_executable("php")

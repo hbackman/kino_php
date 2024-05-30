@@ -30,3 +30,6 @@ kino_php-*.tar
 
 # Intellij editor files
 .idea/
+
+# asdf files
+.tool_versions
