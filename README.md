@@ -6,24 +6,13 @@ how livebook normally executes cells.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `kino_php` to your list of dependencies in `mix.exs`:
+To bring KinoPHP to Livebook all you need to do is `Mix.install/2`:
 
 ```elixir
-def deps do
-  [
-    {:kino_php, "~> 0.1.0"}
-  ]
-end
+Mix.install([
+  {:kino_php, "~> 0.2.0"}
+])
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/kino_php>.
-
-## Notes
-
-https://www.theerlangelist.com/article/outside_elixir
 
 ## Goals
 
